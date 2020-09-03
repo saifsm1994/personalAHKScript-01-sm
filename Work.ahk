@@ -84,7 +84,6 @@
 	return
 
 	f9 & 5::
-	clearFunctionOriginal:
 		send ^1
 		sleep 222
 		send ^c
@@ -110,8 +109,6 @@
 
 
 	f9 & 6::
-	clearFunctionPDF:
-	^numpadClear::
 		send ^1
 		sleep 222
 		send ^c
@@ -140,8 +137,6 @@
 	return
 	
 	f9 & 7::
-	clearFunctionText:
-	+numpadClear::
 		send ^1
 		sleep 222
 		send ^c
@@ -166,7 +161,7 @@
 		gosub findCopyInURLID1
 		send ^2
 		sleep 100
-		gosub chainedDiffcheckerTextAlreadyOpen
+	;	gosub saveABandDraft
 	return
 	
 	f9 & 8::
@@ -310,7 +305,6 @@
 	return
 	
 	f12 & 8::
-	red:
 		WinGet, OutputVar, ProcessName, A
 		SplitPath, OutputVar,,,, OutNameNoExt
 		If OutNameNoExt = chrome
@@ -362,42 +356,6 @@
 	+PrintScreen::
 		gosub findURLPageInLocalServer
 	return
-	
-	numpadHome::
-		send ^{PgUp}
-	return
-	
-	numpadUp::
-		send ^{PgDn}
-	return
-	
-	numpadPgUp::
-		gosub chainedDiffcheckerTextAlreadyOpen
-	return
-	
-	numpadClear::
-		gosub clearFunctionOriginal
-	return
-	
-	numpadLeft::
-		loop 4
-		{
-			Send {WheelDown}
-			Sleep 40
-		}
-	return
-	
-	numpadIns::
-		gosub green
-	return
-	
-	numpadDel::
-		gosub yellow
-	return
-	
-	
-	
-	
 
 ;;; RAZER RAZOR KEYBOARD SHORTCUTS
 
@@ -449,6 +407,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 	return
 
 
+
 	global test := Object() 
 	test[1] := "1adsfa" 
 
@@ -469,7 +428,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		f3 & numpad1::
 		f3 & numpadEnd::
 		f3 & End::
-		yellow:
 			WinGet, OutputVar, ProcessName, A
 			SplitPath, OutputVar,,,, OutNameNoExt
 			If OutNameNoExt = chrome
@@ -487,7 +445,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		f3 & numpad2::
 		f3 & numpadDown::
 		f3 & Down::
-		green:
 			WinGet, OutputVar, ProcessName, A
 			SplitPath, OutputVar,,,, OutNameNoExt
 			If OutNameNoExt = chrome
@@ -518,7 +475,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		f3 & numpad4::
 		f3 & numpadLeft::
 		f3 & Left::
-		grey:
 			WinGet, OutputVar, ProcessName, A
 			SplitPath, OutputVar,,,, OutNameNoExt
 			If OutNameNoExt = chrome
@@ -532,7 +488,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 		f3 & numpad5::
 		f3 & numpadClear::
-		clear:
 		WinGet, OutputVar, ProcessName, A
 		SplitPath, OutputVar,,,, OutNameNoExt
 		If OutNameNoExt = chrome
@@ -597,7 +552,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 	return
 
 	f3 & numpadAdd::
-		gosub draftableComPdf
+		gosub copyBuiltLinksandOpenText
 	return
 
 
@@ -615,12 +570,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 	f3 & f9::
 	del:
-		gosub linebreak
+		gosub spaceNbsp
 	return 
 
 	f3 & f7::
 	home:
-		gosub spaceNbsp
+		gosub linebreak
 	return
 
 	f3 & f10::
@@ -762,22 +717,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		}
 	return
 	
-	f3 & z::
-		gosub heading1
-	return
 	
-	f3 & x::
-		gosub heading2
-	return
-	
-	f3 & c::
-		gosub heading3
-	return
-	
-	f3 & v::
-		gosub heading4
-	return
-
 
 
 
@@ -794,7 +734,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 		Gosub Bpdf
 		sleep 1510
-
 		Gosub draftableComPdf
 	Return
 	
@@ -936,7 +875,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		sleep 400
 		send {enter}
 	Return
-	
+
 	redGoogle:
 		send !/
 		sleep 150
@@ -1047,39 +986,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		send n
 		}
 	return
-	
-	
-	heading1:
-		send !/
-		sleep 50
-		sendInput Heading 1
-		sleep 400
-		send {enter}
-	Return
-	
-	heading2:
-		send !/
-		sleep 50
-		sendInput Heading 2
-		sleep 400
-		send {enter}
-	Return
-	
-	heading3:
-		send !/
-		sleep 50
-		sendInput Heading 3
-		sleep 400
-		send {enter}
-	Return
-	
-	heading4:
-		send !/
-		sleep 50
-		sendInput Heading 4
-		sleep 400
-		send {enter}
-	Return
 
 	GoToDraftable:
 	send ^t
@@ -1534,7 +1440,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 	
 	saveABandDraft:
 		Gosub SaveAB
-		gosub GoToDraftable
 		gosub draftableComPdf
 	Return
 	
@@ -1543,9 +1448,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		sleep 100
 
 		send +{Home}
-		sleep 100
 		send {Backspace}
-		sleep 100
+		sleep 5
 
 		sendInput '=if(isnumber($C2),join("","https://portal.policyreporter.com/geturlupdate.php?urlid=",$A2,"&updateid=",C2,"&type=original"),"n/a")'
 
@@ -1555,7 +1459,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		send {Home}
 		sleep 100
 		send {Delete}
-		sleep 100
 		send {Enter}
 	return
 	
@@ -1572,7 +1475,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 		send {Home}
 		sleep 100
 		send {Delete}
-		sleep 100
 		send {Enter}
 	return
 	
@@ -1648,17 +1550,14 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 	return
 
 	draftableComPdf:
-		gosub GoToDraftable
-		sleep 2000
 		loop 15
 		{
-		send ^{-}
+		send ^-
 		sleep 100
 		}
-		sleep 1000
 		loop 9
 		{
-		send ^{+}
+		send ^+
 		sleep 100
 		}
 		MouseGetPos, StartX, StartY
@@ -2469,106 +2368,3 @@ openNote2:
 	Send {Enter}
 	return
 return
-
-
-	^f1::
-		send {f1}
-	return
-	
-	^f2::
-		send {f2}
-	return
-	^f3::
-		send {f3}
-	return
-	^f4::
-		send {f4}
-	return
-	^f5::
-		send {f5}
-	return
-	^f6::
-		send {f6}
-	return
-	^f7::
-		send {f7}
-	return
-	^f8::
-		send {f8}
-	return
-	^f9::
-		send {f9}
-	return
-	^f10::
-		send {f10}
-	return
-	^f11::
-		send {f11}
-	return
-	^f12::
-		send {f12}
-	return
-	
-	
-	
-	
-	
-
-;;;;;;play
-
-
-
-	f3 & n::
-	loop 10
-	{
-
-		
-		click, right
-		sleep 10
-		loop 2
-		{
-		send {Up}
-		sleep 30
-		}
-		loop 2
-		{
-		send {Enter}
-		sleep 30
-		}
-		loop 30
-		{ 
-		send {PgDn}
-		sleep 5
-		}
-		
-		loop 30
-		{ 
-		send {Down}
-		sleep 5
-		}
-	}	
-	return
-	
-	sendToBalabolka:
-		IfWinExist  ahk_exe balabolka.exe
-		winactivate ahk_exe balabolka.exe
-	else
-		run, "C:\Program Files (x86)\Balabolka\balabolka.exe"
-		WinWaitActive ahk_exe balabolka.exe
-	
-		sleep 100
-		send {f7}
-		sleep 100
-		send ^n
-		sleep 100
-		send ^v
-		sleep 100
-		send {f5}
-		sleep 100
-		send !{tab}
-	return    
-	
-	f13::
-		gosub sendToBalabolka
-	return
-	
